@@ -1,9 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import os
-import stat
 from conans import ConanFile, tools, CMake
-from conans.errors import ConanException
 
 
 class LibSBMLConan(ConanFile):
@@ -59,7 +56,6 @@ conan_basic_setup()''')
 
 
     def _configure(self, cmake):
-        cmake.verbose = True
         args = ['-DWITH_LIBXML=OFF', '-DWITH_EXPAT=ON']
         if self.options.comp: 
           args.append('-DENABLE_COMP=ON')
@@ -79,6 +75,8 @@ conan_basic_setup()''')
           args.append('-DWITH_CPP_NAMESPACE=ON')
         if self.settings.compiler == 'Visual Studio' and 'MT' in self.settings.compiler.runtime: 
           args.append('-DWITH_STATIC_RUNTIME=ON')
+        if not self.options.shared: 
+          args.append('-DLIBSBML_SKIP_SHARED_LIBRARY=ON')
 
         cmake.configure(build_folder="build", args=args, source_folder="src")
 
