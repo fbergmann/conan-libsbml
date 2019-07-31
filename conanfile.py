@@ -44,7 +44,7 @@ class LibSBMLConan(ConanFile):
         self.options['zlib'].shared = self.options.shared
         self.requires("Expat/2.2.7@pix4d/stable")
         self.options['Expat'].shared = self.options.shared
-        if 'MT' in self.settings.compiler.runtime:
+        if self.settings.compiler == 'Visual Studio' and 'MT' in self.settings.compiler.runtime:
           self.options['Expat'].static_crt = True
 
     def configure(self):
