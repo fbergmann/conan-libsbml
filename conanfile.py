@@ -109,3 +109,6 @@ conan_basic_setup()''')
                 libfile += "-static.lib"
 
         self.cpp_info.libs = [libfile]
+        
+        if not self.options.shared:
+          self.cpp_info.defines = ["LIBSBML_STATIC", "LIBLAX_STATIC"]
