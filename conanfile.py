@@ -108,6 +108,12 @@ conan_basic_setup()''')
         cmake = CMake(self)
         self._configure(cmake)
         cmake.install()
+        self.copy("*.lib", dst="lib", keep_path=False)
+        if self.settings.os == "Windows":
+            self.copy("*.dll", dst="bin", keep_path=False)
+        self.copy("*.so", dst="lib", keep_path=False)
+        self.copy("*.dylib", dst="lib", keep_path=False)
+        self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
 
