@@ -34,7 +34,7 @@ class LibSBMLConan(ConanFile):
         "cpp_namespaces": [True, False]
     }
 
-    default_options = tuple(
+    default_options = (
         "shared=False",
         "fPIC=True",
         "comp=True",
