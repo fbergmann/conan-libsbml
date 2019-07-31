@@ -77,7 +77,7 @@ conan_basic_setup()''')
           args.append('-DENABLE_RENDER=ON')
         if self.options.cpp_namespaces: 
           args.append('-DWITH_CPP_NAMESPACE=ON')
-        if 'MT' in self.settings.compiler.runtime: 
+        if self.settings.compiler == 'Visual Studio' and 'MT' in self.settings.compiler.runtime: 
           args.append('-DWITH_STATIC_RUNTIME=ON')
 
         cmake.configure(build_folder="build", args=args, source_folder="src")
