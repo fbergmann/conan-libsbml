@@ -1,25 +1,14 @@
 from conans import ConanFile, CMake
 import os
 
-
-channel = os.getenv("CONAN_CHANNEL", "stable")
-username = os.getenv("CONAN_USERNAME", "fbergmann")
-
-
 class LibsbmlTestConan(ConanFile):
-    settings = "os", "compiler", "build_type", "arch"
-    requires = "libsbml/5.18.1@%s/%s" % (username, channel)
+    settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
 
     def build(self):
-        cmake = CMake(self.settings)
-        self.run('cmake "%s" %s' % (self.conanfile_directory, cmake.command_line))
-        self.run("cmake --build . %s" % cmake.build_config)
-
-    def imports(self):
-        self.copy("*.dll", "bin", "bin")
-        self.copy("*.dylib", "bin", "bin")
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
 
     def test(self):
-        os.chdir("bin")
-        self.run(".%slibsbml_info" % os.sep)
+        self.run(os.path.join("bin", "libsbml_info"), run_environment=True)
