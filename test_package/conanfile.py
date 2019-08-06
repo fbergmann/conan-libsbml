@@ -12,3 +12,7 @@ class LibsbmlTestConan(ConanFile):
 
     def test(self):
         self.run(os.path.join("bin", "libsbml_info"), run_environment=True)
+        self.run(os.path.join("bin", "createExampleSBML"), run_environment=True)
+        self.run(os.path.join("bin", "printSBML") + " enzymaticreaction.xml", run_environment=True)
+        self.run(os.path.join("bin", "printSBML") + " units.xml", run_environment=True)
+        self.run(os.path.join("bin", "printSBML") + " functiondef.xml", run_environment=True)
