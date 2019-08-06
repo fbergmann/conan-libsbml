@@ -63,9 +63,6 @@ class LibSBMLConan(ConanFile):
         if self.settings.compiler == 'Visual Studio' and 'MT' in self.settings.compiler.runtime:
             self.options['Expat'].static_crt = True
 
-    def configure(self):
-        del self.settings.compiler.libcxx
-
     def source(self):
         svn = tools.SVN("src")
         svn.checkout("https://svn.code.sf.net/p/sbml/code/trunk/libsbml")
@@ -96,6 +93,8 @@ conan_basic_setup()''')
             args.append('-DWITH_STATIC_RUNTIME=ON')
         if not self.options.shared:
             args.append('-DLIBSBML_SKIP_SHARED_LIBRARY=ON')
+        else: 
+            args.append('-DLIBSBML_SKIP_STATIC_LIBRARY=ON')
 
         cmake.configure(build_folder="build", args=args, source_folder="src")
 
@@ -109,11 +108,13 @@ conan_basic_setup()''')
         self._configure(cmake)
         cmake.install()
         self.copy("*.lib", dst="lib", keep_path=False)
-        if self.settings.os == "Windows":
-            self.copy("*.dll", dst="bin", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.dylib", dst="lib", keep_path=False)
-        self.copy("*.a", dst="lib", keep_path=False)
+        if self.options.shared: 
+          if self.settings.os == "Windows":
+              self.copy("*.dll", dst="bin", keep_path=False)
+          self.copy("*.so", dst="lib", keep_path=False)
+          self.copy("*.dylib", dst="lib", keep_path=False)
+        else:
+          self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
 
