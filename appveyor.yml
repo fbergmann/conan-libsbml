@@ -6,26 +6,27 @@ environment:
 
     CONAN_USERNAME: "fbergmann"
     CONAN_LOGIN_USERNAME: "fbergmann"
-    CONAN_CHANNEL: "testing"
+    CONAN_CHANNEL: "stable"
     VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
     CONAN_UPLOAD: "https://api.bintray.com/conan/fbergmann/conan"
-    CONAN_STABLE_BRANCH_PATTERN: "release/*"
     CONAN_BUILD_POLICY: "missing"
-    CONAN_UPLOAD_ONLY_WHEN_STABLE: 1 # Will only upload when the branch matches "release/*"
+    CONAN_BUILD_TYPES: Release
+    CONAN_UPLOAD_DEPENDENCIES: "all"
+
 
     matrix:
-        - MINGW_CONFIGURATIONS: "4.9@x86_64@seh@posix"
-        - MINGW_CONFIGURATIONS: "4.9@x86_64@sjlj@posix"
+        #- MINGW_CONFIGURATIONS: "4.9@x86_64@seh@posix"
+        #- MINGW_CONFIGURATIONS: "4.9@x86_64@sjlj@posix"
         - MINGW_CONFIGURATIONS: "4.9@x86@sjlj@posix"
         - MINGW_CONFIGURATIONS: "4.9@x86@dwarf2@posix"
         - MINGW_CONFIGURATIONS: "5@x86@dwarf2@posix"
-        - MINGW_CONFIGURATIONS: "5@x86_64@seh@posix"
+        #- MINGW_CONFIGURATIONS: "5@x86_64@seh@posix"
         - MINGW_CONFIGURATIONS: "6@x86@dwarf2@posix"
-        - MINGW_CONFIGURATIONS: "6@x86_64@seh@posix"
+        #- MINGW_CONFIGURATIONS: "6@x86_64@seh@posix"
         - MINGW_CONFIGURATIONS: "7@x86@dwarf2@posix"
-        - MINGW_CONFIGURATIONS: "7@x86_64@seh@posix"
+        #- MINGW_CONFIGURATIONS: "7@x86_64@seh@posix"
         - MINGW_CONFIGURATIONS: "8@x86@dwarf2@posix"
-        - MINGW_CONFIGURATIONS: "8@x86_64@seh@posix"
+        #- MINGW_CONFIGURATIONS: "8@x86_64@seh@posix"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           CONAN_VISUAL_VERSIONS: 12
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -40,6 +41,7 @@ install:
   - pip.exe install conan --upgrade
   - pip.exe install conan_package_tools
   - conan user # It creates the conan data directory
+  - conan remote add fbergmann "https://api.bintray.com/conan/fbergmann/conan"
 
 test_script:
   - python build.py

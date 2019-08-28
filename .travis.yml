@@ -2,12 +2,13 @@ env:
    global:
      - CONAN_USERNAME: "fbergmann"
      - CONAN_LOGIN_USERNAME: "fbergmann"
-     - CONAN_CHANNEL: "testing"
+     - CONAN_CHANNEL: "stable"
      - CONAN_UPLOAD: "https://api.bintray.com/conan/fbergmann/conan"
-     - CONAN_STABLE_BRANCH_PATTERN: "release/*"
      - CONAN_BUILD_POLICY: "missing"
-     - CONAN_UPLOAD_ONLY_WHEN_STABLE: 1 # Will only upload when the branch matches "release/*"
      - CONAN_DOCKER_32_IMAGES: 1
+     - CONAN_BUILD_TYPES: Release
+     - CONAN_UPLOAD_DEPENDENCIES: "all"
+
 
 linux: &linux
    os: linux
