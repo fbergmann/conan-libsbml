@@ -107,6 +107,7 @@ conan_basic_setup()''')
         cmake = CMake(self)
         self._configure(cmake)
         cmake.install()
+        cmake.patch_config_paths()
         self.copy("*.lib", dst="lib", keep_path=False)
         if self.options.shared: 
           if self.settings.os == "Windows":

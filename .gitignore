@@ -7,6 +7,7 @@ test_package/build
 package
 src
 
+Find*cmake
 conanbuildinfo.cmake
 conanbuildinfo.txt
 conaninfo.txt
