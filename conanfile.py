@@ -64,8 +64,11 @@ class LibSBMLConan(ConanFile):
             self.options['Expat'].static_crt = True
 
     def source(self):
-        svn = tools.SVN("src")
-        svn.checkout("https://svn.code.sf.net/p/sbml/code/trunk/libsbml")
+        git = tools.Git("src")
+        git.clone("https://github.com/fbergmann/libsbml_test")
+        #svn = tools.SVN("src")
+        #svn.checkout("https://svn.code.sf.net/p/sbml/code/trunk/libsbml")
+        
         tools.replace_in_file('src/CMakeLists.txt', "project(libsbml)", '''project(libsbml)
 
 include(${CMAKE_BINARY_DIR}/../conanbuildinfo.cmake)
