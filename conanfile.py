@@ -6,7 +6,7 @@ from conans import ConanFile, tools, CMake
 class LibSBMLConan(ConanFile):
 
     name = "libsbml"
-    version = "5.18.1"
+    version = "5.18.3"
     url = "http://github.com/fbergmann/conan-libsbml"
     homepage = "https://sbml.org"
     author = "SBML Team"
@@ -31,6 +31,10 @@ class LibSBMLConan(ConanFile):
         "multi": [True, False],
         "qual": [True, False],
         "render": [True, False],
+        "distrib": [True, False],
+        "dyn": [True, False],
+        "arrays": [True, False],
+        "spatial": [True, False],
         "cpp_namespaces": [True, False]
     }
 
@@ -44,6 +48,10 @@ class LibSBMLConan(ConanFile):
         "multi=True",
         "qual=True",
         "render=True",
+        "distrib=False",
+        "dyn=False",
+        "arrays=False",
+        "spatial=False",
         "cpp_namespaces=False"
     )
 
@@ -88,6 +96,14 @@ conan_basic_setup()''')
             args.append('-DENABLE_QUAL=ON')
         if self.options.render:
             args.append('-DENABLE_RENDER=ON')
+        if self.options.distrib:
+            args.append('-DENABLE_DISTRIB=ON')
+        if self.options.dyn:
+            args.append('-DENABLE_DYN=ON')
+        if self.options.arrays:
+            args.append('-DENABLE_ARRAYS=ON')
+        if self.options.spatial:
+            args.append('-DENABLE_SPATIAL=ON')
         if self.options.cpp_namespaces:
             args.append('-DWITH_CPP_NAMESPACE=ON')
         if self.settings.compiler == 'Visual Studio' and 'MT' in self.settings.compiler.runtime:
