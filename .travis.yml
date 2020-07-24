@@ -59,7 +59,7 @@ matrix:
         env: CONAN_APPLE_CLANG_VERSIONS=11.0
       - <<: *osx
         osx_image: xcode12
-        env: CONAN_APPLE_CLANG_VERSIONS=12.0
+        env: CONAN_APPLE_CLANG_VERSIONS=11.0
 
 install:
   - chmod +x .ci/install.sh
